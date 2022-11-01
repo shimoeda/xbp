@@ -19,12 +19,48 @@
         しかし、”yes”と回答し続けランダムでたされる数字が100を超えてしまった場合、ゲームオーバーとなってしまいます。<br>
         
         　　　<h4>ソースコード</h4>
+        <pre><code>
+            
+            import random
+            from re import I
+            from tkinter import Y
+            
+            
+            
+            counter=0
+            
+            print("99を超えないように限界まで挑戦してください。")
+            print("現在の数字は０です。")
+            while counter<=99:
+                a  =   random.randint(1,30)
+                question=input("まだ足しますか。")
+                if question=="yes":
+                    counter=counter+a
+                    print("現在の合計は",counter,"です。")
+                elif counter==99:
+                    print("おめでとうございます。99ぴったりです。")    
+                    break
+                elif question=="no":
+                    print("ハイスコアは",counter,"です。")
+                    break
+            
+        
+                if counter>=99:
+                       print("99を超えました。失敗です。")
+
+        </code></pre>
 
         　　　<h4>遊んでみた！</h4>
-
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/evpLSzzvcVE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         　　　<h4>思考過程</h4>
         初め、ifと数学のような文字をつかっゲームを作成しようと思ったが、同じ形式のコードが続く形になってしまった。<br>
         そこでwhileを使ってみたら、同じソースコードを繰り返し書かなくても繰り返させることができた。<br>
+        また、最初は、最後の行を<br>
+           「else：<br>
+               print:（”99を超えました。失敗です。”）<br>
+        にしていたが、これだと、９９を超えた時、足しますかの質問が終わるだけで、ゲームオーバーの文言が表示されなかった。<br>
+        そこで、「else」を「if counter＞＝99」に書き換えてみたらゲームオーバーの文言が表示されるようになった。       
+
      <br>
      <br>
      <br>   

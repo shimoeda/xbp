@@ -22,6 +22,6 @@ while counter<=99:
         break
 
 
-    else:
-        print("99を超えました。失敗です。")
+    if counter>=99:
+           print("99を超えました。失敗です。")
         
