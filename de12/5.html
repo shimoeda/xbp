@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+   
+    <title>shimoedaのレポート⑤</title>
+    
+    <link rel="stylesheet" href="./css/style.css">
+
+    <h1>第5回</h1>
+    
+    　　　<h2>歌詞検索システム</h2>
+     　　　　
+    <div>
+        <h3>作成内容</h3>
+        アーティスト名と曲名を入力したら曲の歌詞が表示されるシステム。
+        <h3>ソースコード</h3>
+        <pre><code>
+            #歌詞の習得テキスト化
+import requests
+from bs4 import BeautifulSoup
+ 
+print("歌手名入力")
+band = input()
+print("歌名入力")
+song = input()
+ 
+def main():
+    # URL の指定
+    url = "https://utaten.com" +str(band) + "/"+str(song)
+    # ページの取得
+    html = requests.get(url).text
+    # HTML の保存
+    with open("config.html", mode="w", encoding="utf-8") as file:
+        file.write(html)
+ 
+    soup = BeautifulSoup(html, "html.parser")
+    article = soup.find("article", class_="contentsBox movie_box")
+ 
+    # タイトルの取得
+    span = article.find("span", class_="movieTtl_mainTxt")
+    title = span.text[1:-1]
+ 
+    # 作者の取得
+    dl = soup.find("dl", class_="lyricWork")
+    dds = dl.find_all("dd")
+    lyricist = dds[0].text
+    composer = dds[1].text
+ 
+    # 歌詞の取得
+    div = soup.find("div", class_="hiragana")
+    div.find("span", class_="rt").extract()
+ 
+    print(title)
+    #print(lyricist, composer)
+    print(div.get_text())
+    
+    #書き込み用ファイルの生成
+    path_w = "kashi.txt"
+ 
+    s = div.get_text()
+ 
+    with open(path_w, mode='a') as f:
+        f.write(s)
+ 
+if __name__ == '__main__':
+    main()
+
+u # タイトルの取得
+span = article.find("span", class_="movieTtl_mainTxt")
+title = span.text[1:-1]
+ 
+    # 作者の取得
+dl = soup.find("dl", class_="lyricWork")
+dds = dl.find_all("dd")
+lyricist = dds[0].text
+composer = dds[1].text
+ 
+    # 歌詞の取得
+div = soup.find("div", class_="hiragana")
+div.find("span", class_="rt").extract()
+ 
+print(title)
+print(lyricist, composer)
+print(div.get_text())
+ 
+
+
+        </code></pre>
+
+        <h3>失敗内容</h3>
+        アーティストと曲名の入力をするところまでは行けたが、そこでプログラムが終了してしまい、歌詞が表示されなかった。
+        <h3>失敗原因</h3>
+        添付サイトをhtmlで見たときに、参考サイトが作成された時とタグが変わっていて、うまくシステムが起動していないのだと思った。<br>
+        そこでタグの変更を何個か試したみたが、結果は同じになってしまった。<br>
+        他に調べてみたが、失敗の原因は不明である。<br>
+        
+        <br>
+        <a href="https://ligerarts.jimdofree.com/2020/08/30/python-歌詞を検索しよう/" target="_blank">参考文献</a><br>
+       <br>
+       <br>
+       <br>
+        <a href="https://shimoeda.github.io/xbp/" target="_blank">前のページへ戻る</a><br>
+    </div>
+    
+
+
+
+</body>
+</html>
