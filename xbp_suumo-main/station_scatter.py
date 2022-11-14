@@ -12,7 +12,7 @@ from matplotlib import font_manager
 間取り、面積、URL
 """
 ########################
-targets = ["京急本線", "京急逗子線"]
+targets = ["東急東横線"]
 factor_1 = "築年数"
 factor_2 = "家賃"
 ########################
